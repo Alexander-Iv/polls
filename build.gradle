@@ -1,0 +1,10 @@
+ext {
+    javaVersion = JavaVersion.VERSION_1_8
+    springBootVersion = '2.2.4.RELEASE'
+    springDependencyManagementVersion = '1.0.9.RELEASE'
+    postgresqlVersion = '42.2.8'
+    liquibaseVersion = '3.8.5'
+}
+
+group = 'alexander.ivanov'
+version = '0.0.1'

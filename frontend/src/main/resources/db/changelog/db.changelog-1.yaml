@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: alexander.an.ivanov@gmail.com
+      runOnChange: true
+      changes:
+        - createTable:
+            catalogName: polls
+            tableName: poll
+            columns:
+              - column:
+                  name: POLL_ID
+                  type: serial
+                  constraints:
+                    - primaryKey: true
+                    - primaryKeyName: pk_poll
+              - column:
+                  name: POLL_NAME
+                  type: text
+              - column:
+                  name: START_DATE
+                  type: timestamp
+              - column:
+                  name: END_DATE
+                  type: timestamp
+              - column:
+                  name: ACTIVITY
+                  type: BOOLEAN
+
+
+
+
