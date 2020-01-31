@@ -10,20 +10,25 @@ databaseChangeLog:
             columns:
               - column:
                   name: QSTN_ID
-                  type: serial
+                  type: bigint
+                  autoIncrement: true
                   constraints:
                     - primaryKey: true
                     - primaryKeyName: pk_question
-              - column:
-                  name: POLL_POLL_ID
-                  type: integer
-                  constraints:
-                    - nullable: false
-                    - foreignKeyName: fk_question_poll
-                    - references: poll(poll_id)
               - column:
                   name: CONTENT
                   type: text
               - column:
                   name: ORDER_NUM
                   type: integer
+              - column:
+                  name: POLL_POLL_ID
+                  type: bigint
+                  constraints:
+                    - nullable: false
+                    - foreignKeyName: fk_question_poll
+                    - references: poll(poll_id)
+        - rollback:
+            dropTable:
+              catalogName: polls
+              tableName: question

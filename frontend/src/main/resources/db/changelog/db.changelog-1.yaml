@@ -10,7 +10,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: POLL_ID
-                  type: serial
+                  type: bigint
+                  autoIncrement: true
                   constraints:
                     - primaryKey: true
                     - primaryKeyName: pk_poll
@@ -26,7 +27,7 @@ databaseChangeLog:
               - column:
                   name: ACTIVITY
                   type: BOOLEAN
-
-
-
-
+        - rollback:
+            dropTable:
+              catalogName: polls
+              tableName: question
