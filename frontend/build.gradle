@@ -19,6 +19,7 @@ dependencies {
 
     implementation group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
     implementation group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: modelMapperVersion
 
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

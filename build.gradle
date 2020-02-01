@@ -4,6 +4,7 @@ ext {
     springDependencyManagementVersion = '1.0.9.RELEASE'
     postgresqlVersion = '42.2.8'
     liquibaseVersion = '3.8.5'
+    modelMapperVersion = '2.3.6'
 }
 
 group = 'alexander.ivanov'

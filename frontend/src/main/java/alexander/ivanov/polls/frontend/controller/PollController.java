@@ -1,15 +1,13 @@
 package alexander.ivanov.polls.frontend.controller;
 
+import alexander.ivanov.polls.frontend.model.dto.PollDto;
 import alexander.ivanov.polls.frontend.service.PollService;
 import alexander.ivanov.polls.frontend.util.ControllerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/polls")
@@ -43,5 +41,20 @@ public class PollController {
         }
         return ResponseEntity.ok(poll);*/
         return ControllerUtils.getResponseEntity(() -> pollService.getPollById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createPoll(@RequestBody PollDto pollDto) {
+        return ControllerUtils.getResponseEntity(() -> pollService.createPoll(pollDto));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updatePoll(@RequestBody PollDto pollDto) {
+        return ResponseEntity.ok("");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePoll(@PathVariable String id) {
+        return ResponseEntity.ok("");
     }
 }

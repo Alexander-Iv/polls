@@ -58,7 +58,7 @@ public class Question {
                 "id=" + id +
                 ", content='" + content + '\'' +
                 ", orderNum=" + orderNum +
-                ", poll=" + poll +
+//                ", poll=" + poll +
                 '}';
     }
 }
