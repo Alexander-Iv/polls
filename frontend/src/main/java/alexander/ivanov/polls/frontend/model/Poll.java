@@ -20,6 +20,7 @@ public class Poll {
     @Column(name = "activity")
     private Boolean activity;
     @OneToMany(mappedBy = "poll", fetch = FetchType.EAGER, targetEntity = Question.class)
+    @OrderBy("orderNum")
     private List<Question> questions;
 
     public Poll() {

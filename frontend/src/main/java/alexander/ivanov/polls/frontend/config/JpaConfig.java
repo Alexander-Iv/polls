@@ -54,6 +54,7 @@ public class JpaConfig {
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL10Dialect");
         properties.setProperty("hibernate.hbm2ddl.auto", "validate");
         //properties.setProperty("hibernate.connection.autocommit", "false");
+        properties.setProperty("format_sql", "true");
         return properties;
     }
 }

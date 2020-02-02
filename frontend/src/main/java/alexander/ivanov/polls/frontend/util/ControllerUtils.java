@@ -12,6 +12,7 @@ public class ControllerUtils {
         try {
             value = supplier.get();
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(e.getMessage()));
         }
         return ResponseEntity.ok(value);
