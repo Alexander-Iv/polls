@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static alexander.ivanov.polls.frontend.util.ParamFormat.format;
+
 public class PollSpecificationUtils {
     private static final Logger logger = LoggerFactory.getLogger(PollSpecificationUtils.class);
 
@@ -36,7 +38,7 @@ public class PollSpecificationUtils {
 
     public static class NameSpecification implements StringSpecification {
         public static final String FIELD_NAME = "name";
-        public static final String NAME_LIKE = paramFormat(FIELD_NAME, SupportedOperations.LIKE);
+        public static final String NAME_LIKE = format(FIELD_NAME, SupportedOperations.LIKE);
         private Map<String, String> params = new HashMap<>();
 
         private NameSpecification() {
@@ -80,11 +82,11 @@ public class PollSpecificationUtils {
 
     public static class StartDateSpecification implements DateSpecification {
         public static final String FIELD_NAME = "startDate";
-        public static final String START_DATE_EQ = paramFormat(FIELD_NAME, SupportedOperations.EQ);
-        public static final String START_DATE_GT = paramFormat(FIELD_NAME, SupportedOperations.GT);
-        public static final String START_DATE_GTE = paramFormat(FIELD_NAME, SupportedOperations.GTE);
-        public static final String START_DATE_LT = paramFormat(FIELD_NAME, SupportedOperations.LT);
-        public static final String START_DATE_LTE = paramFormat(FIELD_NAME, SupportedOperations.LTE);
+        public static final String START_DATE_EQ = format(FIELD_NAME, SupportedOperations.EQ);
+        public static final String START_DATE_GT = format(FIELD_NAME, SupportedOperations.GT);
+        public static final String START_DATE_GTE = format(FIELD_NAME, SupportedOperations.GTE);
+        public static final String START_DATE_LT = format(FIELD_NAME, SupportedOperations.LT);
+        public static final String START_DATE_LTE = format(FIELD_NAME, SupportedOperations.LTE);
         private Map<String, String> params = new HashMap<>();
 
         private StartDateSpecification() {
@@ -189,11 +191,11 @@ public class PollSpecificationUtils {
 
     public static class EndDateSpecification implements DateSpecification {
         public static final String FIELD_NAME = "endDate";
-        public static final String END_DATE_EQ = paramFormat(FIELD_NAME, SupportedOperations.EQ);
-        public static final String END_DATE_GT = paramFormat(FIELD_NAME, SupportedOperations.GT);
-        public static final String END_DATE_GTE = paramFormat(FIELD_NAME, SupportedOperations.GTE);
-        public static final String END_DATE_LT = paramFormat(FIELD_NAME, SupportedOperations.LT);
-        public static final String END_DATE_LTE = paramFormat(FIELD_NAME, SupportedOperations.LTE);
+        public static final String END_DATE_EQ = format(FIELD_NAME, SupportedOperations.EQ);
+        public static final String END_DATE_GT = format(FIELD_NAME, SupportedOperations.GT);
+        public static final String END_DATE_GTE = format(FIELD_NAME, SupportedOperations.GTE);
+        public static final String END_DATE_LT = format(FIELD_NAME, SupportedOperations.LT);
+        public static final String END_DATE_LTE = format(FIELD_NAME, SupportedOperations.LTE);
         private Map<String, String> params = new HashMap<>();
 
         private EndDateSpecification() {
@@ -298,7 +300,7 @@ public class PollSpecificationUtils {
 
     public static class ActivitySpecification implements BooleanSpecification {
         public static final String FIELD_NAME = "activity";
-        public static final String ACTIVITY_EQ = paramFormat(FIELD_NAME, SupportedOperations.EQ);
+        public static final String ACTIVITY_EQ = format(FIELD_NAME, SupportedOperations.EQ);
         private Map<String, String> params = new HashMap<>();
 
         private ActivitySpecification() {
@@ -362,10 +364,5 @@ public class PollSpecificationUtils {
 
     private static <T> Predicate getCriteriaBuilderIfValueExists(Predicate predicate, T value) {
         return Objects.nonNull(value) ? predicate : null;
-    }
-
-    private static String paramFormat(String field, String operation) {
-        final String SEPARATOR = ".";
-        return String.format("%s%s%s", field, SEPARATOR, operation);
     }
 }

@@ -2,6 +2,7 @@ package alexander.ivanov.polls.frontend.util;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.Map;
 
@@ -13,6 +14,9 @@ public class PageUtils {
 
     public static Pageable getPageable(Map<String, String> params) {
         return PageRequest.of(getPage(params), getSize(params));
+    }
+    public static Pageable getPageable(Map<String, String> params, Sort sort) {
+        return PageRequest.of(getPage(params), getSize(params), sort);
     }
 
     private static int getPage(Map<String, String> params) {

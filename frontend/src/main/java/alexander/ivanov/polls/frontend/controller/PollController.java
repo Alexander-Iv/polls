@@ -7,9 +7,6 @@ import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,17 +29,25 @@ public class PollController {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 400, message = "Some error occur")
     })
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "name.like",
+                    value = "Filter by name with like operation",
+                    dataTypeClass = Map.class,
+                    example = "name.like=Опрос%"),
+            @ApiImplicitParam(name = "startDate.[OPERATION]", value = "Filter by start date where [OPERATION] may be one of eq, gt, gte, lt, lte", example = "startDate.eq=2020-01-01T00:00:00"),
+            @ApiImplicitParam(name = "endDate.[OPERATION]", value = "Filter by end date where [OPERATION] may be one of eq, gt, gte, lt, lte", example = "startDate.eq=2020-12-31T23:59:59"),
+            @ApiImplicitParam(name = "activity.eq", value = "Filter by activity with eq operation", example = "activity.eq=true"),
+            @ApiImplicitParam(name = "page", value = "Number of page", example = "page=0"),
+            @ApiImplicitParam(name = "size", value = "Number of polls on page", example = "size=0"),
+            @ApiImplicitParam(name = "sortBy[.OPERATION]", value = "Sort by poll field where [.OPERATION] is optional type sort asc or desc", example = "sortBy=name"),
+    })
     @GetMapping
     public ResponseEntity<?> getPolls(@RequestParam Map<String, String> params) {
-        /*List<Poll> polls = pollService.getPolls();
-        *//*polls.forEach(poll -> {
-            logger.info("poll = {}", poll);
-        });*//*
-        return ResponseEntity.ok(polls);*/
         return ControllerUtils.getResponseEntity(() -> pollService.getPolls(params));
     }
 
-    @ApiOperation(value = "Get an available poll by Id", response = ResponseEntity.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successfully retrieved poll"),
             @ApiResponse(code = 400, message = "Some error occur")
@@ -51,14 +56,6 @@ public class PollController {
     public ResponseEntity<?> getPollById(
             @ApiParam(value = "Poll id from which poll object will retrieve", required = true)
             @PathVariable String id) {
-        /*Poll poll;
-        try {
-            poll = pollService.getPollById(id);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(e.getMessage()));
-            //return ResponseEntity.notFound().eTag(e.getMessage()).build();
-        }
-        return ResponseEntity.ok(poll);*/
         return ControllerUtils.getResponseEntity(() -> pollService.getPollById(id));
     }
 
@@ -71,7 +68,7 @@ public class PollController {
     public ResponseEntity<?> createPoll(
             @ApiParam(value = "Poll object which will created")
             @RequestBody PollDto pollDto) {
-        return ControllerUtils.getResponseEntity(() -> pollService.createPoll(pollDto));
+        return ControllerUtils.getResponseEntity(() -> pollService.createOrUpdatePoll(pollDto));
     }
 
     @ApiOperation(value = "Update a poll")
@@ -83,7 +80,7 @@ public class PollController {
     public ResponseEntity<?> updatePoll(
             @ApiParam(value = "Poll object which will updated")
             @RequestBody PollDto pollDto) {
-        return ResponseEntity.ok("");
+        return ControllerUtils.getResponseEntity(() -> pollService.createOrUpdatePoll(pollDto));
     }
 
     @ApiOperation(value = "Delete a poll")
@@ -95,6 +92,6 @@ public class PollController {
     public ResponseEntity<?> deletePoll(
             @ApiParam(value = "Poll object which will deleted", required = true)
             @PathVariable String id) {
-        return ResponseEntity.ok("");
+        return ControllerUtils.getResponseEntity(() -> pollService.deletePoll(id));
     }
 }
