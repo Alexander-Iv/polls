@@ -72,18 +72,84 @@ REST-сервис должен предоставлять следующие м�
         {"errorMessage":"Polls not found"}
         ``` 
 
-#### Примеры вызова (из cmd Windows)
+#### Примеры вызова
 Документация находится по ссылке `{HOST}/swagger-ui.html`, где HOST - ссылка на хост, где развернут сервис.
 
-##### PUT /api/polls
+##### 1. POST /api/polls
 ###### request
 ```
-curl -H "Content-Type: application/json;charset=UTF-8" -X PUT localhost:8080/api/polls -d '{"id":1,"name":"Опрос1","startDate":"2020-01-01T00:00:00.000+0000","endDate":"2020-12-31T00:00:00.000+0000","activity":true,"questions":[{"id":2,"content":"Вопрос111?","orderNum":1},{"id":1,"content":"Вопрос222?","orderNum":2},{"id":3,"content":"q3","orderNum":3}]}'
+curl -L -X POST 'http://192.168.99.100:8080/api/polls' -H 'Content-Type: application/json' --data-raw '{
+    "id": "1",
+    "name": "Опрос1",
+    "startDate": "2020-01-01",
+    "endDate": "2020-12-31",
+    "activity": "true",
+    "questions": [
+        {
+            "id": "1",
+            "content": "Вопрос222?",
+            "orderNum": "2"
+        },
+        {
+            "id": "2",
+            "content": "Вопрос111?",
+            "orderNum": "1"
+        }
+    ]
+}'
 ```
-##### GET /api/polls
+###### response
+```
+true
+```
+
+##### 2. POST /api/polls
 ###### request
 ```
-curl -H "Content-Type: application/json" -X GET localhost:8080/api/polls
+curl -L -X POST 'http://192.168.99.100:8080/api/polls' -H 'Content-Type: application/json' --data-raw '{
+	"id": 2,
+	"name": "Опрос1",
+	"startDate": "2020-01-01",
+	"endDate": "2020-12-31",
+	"activity": true,
+	"questions": []
+}'
+```
+###### response
+```
+true
+```
+##### 3. PUT /api/polls
+###### request
+```
+curl -L -X POST 'http://192.168.99.100:8080/api/polls' -H 'Content-Type: application/json' --data-raw '{
+    "id": "1",
+    "name": "Опрос1",
+    "startDate": "2020-01-01",
+    "endDate": "2020-12-31",
+    "activity": "true",
+    "questions": [
+        {
+            "id": "1",
+            "content": "Вопрос222?",
+            "orderNum": "2"
+        },
+        {
+            "id": "2",
+            "content": "Вопрос111?",
+            "orderNum": "1"
+        }
+    ]
+}'
+```
+###### response
+```
+true
+```
+##### 4. GET /api/polls
+###### request
+```
+curl --location --request GET 'http://192.168.99.100:8080/api/polls'
 ```
 ###### response
 ```
@@ -106,5 +172,86 @@ curl -H "Content-Type: application/json" -X GET localhost:8080/api/polls
 		"content": "q3",
 		"orderNum": 3
 	}]
-}]
+},
+ {
+     "id": 2,
+     "name": "Опрос1",
+     "startDate": "2020-01-01T00:00:00.000+0000",
+     "endDate": "2020-12-31T00:00:00.000+0000",
+     "activity": true,
+     "questions": []
+ }]
+```
+##### 5. Filtered GET /api/polls
+###### request
+```
+curl -L -X GET 'http://192.168.99.100:8080/api/polls?name.like=%D0%9E%D0%BF%D1%80%D0%BE%D1%81%25&startDate.eq=2020-01-01T00:00:00&endDate.lt=2022-01-01T00:00:00&size=100&sortBy.asc=name&page=0&size=1'
+```
+###### response
+```
+[
+    {
+        "id": 1,
+        "name": "Опрос1",
+        "startDate": "2020-01-01T00:00:00.000+0000",
+        "endDate": "2020-12-31T00:00:00.000+0000",
+        "activity": true,
+        "questions": [
+            {
+                "id": 2,
+                "content": "Вопрос111?",
+                "orderNum": 1
+            },
+            {
+                "id": 1,
+                "content": "Вопрос222?",
+                "orderNum": 2
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Опрос1",
+        "startDate": "2020-01-01T00:00:00.000+0000",
+        "endDate": "2020-12-31T00:00:00.000+0000",
+        "activity": true,
+        "questions": []
+    }
+]
+```
+##### 6. GET /api/polls/1
+###### request
+```
+curl -L -X GET 'http://192.168.99.100:8080/api/polls/1'
+```
+###### response
+```
+{
+    "id": 1,
+    "name": "Опрос1",
+    "startDate": "2020-01-01T00:00:00.000+0000",
+    "endDate": "2020-12-31T00:00:00.000+0000",
+    "activity": true,
+    "questions": [
+        {
+            "id": 2,
+            "content": "Вопрос111?",
+            "orderNum": 1
+        },
+        {
+            "id": 1,
+            "content": "Вопрос222?",
+            "orderNum": 2
+        }
+    ]
+}
+```
+##### 6. DELETE /api/polls/1
+###### request
+```
+curl -L -X DELETE 'http://192.168.99.100:8080/api/polls/1'
+```
+###### response
+```
+true
 ```
