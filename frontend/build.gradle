@@ -21,6 +21,11 @@ dependencies {
     implementation group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
     implementation group: 'org.modelmapper', name: 'modelmapper', version: modelMapperVersion
 
+    //swagger
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
+    //implementation group: 'io.springfox', name: 'springfox-data-rest', version: swaggerVersion
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
+
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

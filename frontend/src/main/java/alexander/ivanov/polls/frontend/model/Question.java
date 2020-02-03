@@ -1,19 +1,28 @@
 package alexander.ivanov.polls.frontend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 
+@ApiModel(description = "All details about the Question.")
 @Entity(name = "question")
 @Table(name = "question")
 public class Question {
+    @ApiModelProperty(notes = "The database generated question ID")
     @Id
     @Column(name = "qstn_id")
     private Long id;
+
+    @ApiModelProperty(notes = "The question")
     @Column(name = "content")
     private String content;
+
+    @ApiModelProperty(notes = "The order witch questions are sorted")
     @Column(name = "order_num")
     private Integer orderNum;
+
     @ManyToOne @JoinColumn(name = "poll_poll_id") @JsonIgnore
     private Poll poll;
 

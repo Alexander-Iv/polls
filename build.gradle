@@ -5,6 +5,7 @@ ext {
     postgresqlVersion = '42.2.8'
     liquibaseVersion = '3.8.5'
     modelMapperVersion = '2.3.6'
+    swaggerVersion = '2.9.2'
 }
 
 group = 'alexander.ivanov'

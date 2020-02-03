@@ -1,24 +1,39 @@
 package alexander.ivanov.polls.frontend.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@ApiModel(description = "All details about the Poll.")
 @Entity(name = "poll")
 @Table(name = "poll")
 public class Poll {
+    @ApiModelProperty(notes = "The database generated poll ID")
     @Id
     @Column(name = "poll_id")
     private Long id;
+
+    @ApiModelProperty(notes = "The poll name")
     @Column(name = "poll_name")
     private String name;
+
+    @ApiModelProperty(notes = "The poll start date")
     @Column(name = "start_date")
     private Date startDate;
+
+    @ApiModelProperty(notes = "The poll end date")
     @Column(name = "end_date")
     private Date endDate;
+
+    @ApiModelProperty(notes = "The poll activity")
     @Column(name = "activity")
     private Boolean activity;
+
+    @ApiModelProperty(notes = "The questions linked with poll")
     @OneToMany(mappedBy = "poll", fetch = FetchType.EAGER, targetEntity = Question.class)
     @OrderBy("orderNum")
     private List<Question> questions;
