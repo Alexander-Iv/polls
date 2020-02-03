@@ -70,8 +70,41 @@ REST-сервис должен предоставлять следующие м�
         - response
         ```
         {"errorMessage":"Polls not found"}
-        ```
-    - смотреть документацию: 
-        - {HOST}/swagger-ui.html
-        
-        где HOST - ссылка на хост, где развернут сервис 
+        ``` 
+
+#### Примеры вызова (из cmd Windows)
+Документация находится по ссылке `{HOST}/swagger-ui.html`, где HOST - ссылка на хост, где развернут сервис.
+
+##### PUT /api/polls
+###### request
+```
+curl -H "Content-Type: application/json;charset=UTF-8" -X PUT localhost:8080/api/polls -d '{"id":1,"name":"Опрос1","startDate":"2020-01-01T00:00:00.000+0000","endDate":"2020-12-31T00:00:00.000+0000","activity":true,"questions":[{"id":2,"content":"Вопрос111?","orderNum":1},{"id":1,"content":"Вопрос222?","orderNum":2},{"id":3,"content":"q3","orderNum":3}]}'
+```
+##### GET /api/polls
+###### request
+```
+curl -H "Content-Type: application/json" -X GET localhost:8080/api/polls
+```
+###### response
+```
+[{
+	"id": 1,
+	"name": "Опрос1",
+	"startDate": "2020-01-01T00:00:00.000+0000",
+	"endDate": "2020-12-31T00:00:00.000+0000",
+	"activity": true,
+	"questions": [{
+		"id": 2,
+		"content": "Вопрос111?",
+		"orderNum": 1
+	}, {
+		"id": 1,
+		"content": "Вопрос222?",
+		"orderNum": 2
+	}, {
+		"id": 3,
+		"content": "q3",
+		"orderNum": 3
+	}]
+}]
+```
